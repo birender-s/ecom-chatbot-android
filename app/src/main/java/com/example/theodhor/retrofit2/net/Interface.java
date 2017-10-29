@@ -78,5 +78,14 @@ public interface Interface {
             @Query("$filter") String filter
     );
 
+    //Azure search API
+    @POST("/oauth/access_token")
+    @FormUrlEncoded
+    Call<ServerResponse> authenticateMoltin(
+            @Field("client_id")String clientId,
+            @Field("client_secret") String clientSecret,
+            @Field("grant_type") String grant_type     //client_credentials
+    );
+
 
 }

@@ -23,6 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AzureCommunicator {
     private static  final String TAG = "AzureCommunicator";
     private static final String SERVER_URL = "https://commerce-search.search.windows.net";
+    private static final String MOLTIN_SERVER_URL = "https://api.moltin.com";
+
     private static final String apiKey = "6731AD6C28D7688B13AC68FCC0DDBD4E";
     private static final String apiVersion = "2015-02-28";
 
@@ -50,7 +52,7 @@ public class AzureCommunicator {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(SERVER_URL)
+                .baseUrl(MOLTIN_SERVER_URL)
                 .build();
 
         Interface service = retrofit.create(Interface.class);
@@ -83,8 +85,13 @@ public class AzureCommunicator {
 
 
 
+//        //to get Variant by ID, this is hard coded for now. Once fixed, we'll make it dynamic
+//        Call<ServerResponse> call = service.findVariantsByID(apiKey, apiVersion, searchVariantsByProductID + "1585703581309206800" + "\'");
+
+
         //to get Variant by ID, this is hard coded for now. Once fixed, we'll make it dynamic
-        Call<ServerResponse> call = service.findVariantsByID(apiKey, apiVersion, searchVariantsByProductID + "1585703581309206800" + "\'");
+        Call<ServerResponse> call = service.authenticateMoltin("2wO8V9Fi9JHL61B5iadWnPLWbcoPOlkrL4UBVtLuIx","7rViT0E6A2Fd0WjWNrC34Ojy7PzNBvlYGAMeJ6gtJL",
+                                                                "client_credentials");
 
 
 
@@ -117,7 +124,7 @@ public class AzureCommunicator {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(SERVER_URL)
+                .baseUrl(MOLTIN_SERVER_URL)
                 .build();
 
         Interface service = retrofit.create(Interface.class);
