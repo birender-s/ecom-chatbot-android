@@ -6,6 +6,7 @@ import com.example.theodhor.retrofit2.Events.ErrorEvent;
 import com.example.theodhor.retrofit2.Events.ServerEvent;
 import com.example.theodhor.retrofit2.net.Interface;
 import com.example.theodhor.retrofit2.net.ServerResponse;
+import com.example.theodhor.retrofit2.net.TopProductModel;
 import com.squareup.otto.Produce;
 
 import okhttp3.OkHttpClient;
@@ -72,18 +73,18 @@ public class Communicator {
 
         Interface service = retrofit.create(Interface.class);
 
-        Call<ServerResponse> call = service.get("login",username,password);
+        Call<TopProductModel> call = service.get("login",username,password);
 
-        call.enqueue(new Callback<ServerResponse>() {
+        call.enqueue(new Callback<TopProductModel>() {
             @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+            public void onResponse(Call<TopProductModel> call, Response<TopProductModel> response) {
                 // response.isSuccessful() is true if the response code is 2xx
-                BusProvider.getInstance().post(new ServerEvent(response.body()));
+              //  BusProvider.getInstance().post(new ServerEvent(response.body()));
                 Log.e(TAG,"Success");
             }
 
             @Override
-            public void onFailure(Call<ServerResponse> call, Throwable t) {
+            public void onFailure(Call<TopProductModel> call, Throwable t) {
                 // handle execution failures like no internet connectivity
                 BusProvider.getInstance().post(new ErrorEvent(-2,t.getMessage()));
             }
